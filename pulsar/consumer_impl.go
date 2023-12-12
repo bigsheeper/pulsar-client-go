@@ -400,6 +400,8 @@ func (c *consumer) internalTopicSubscribeToPartitions() error {
 		return err
 	}
 
+	fmt.Printf("dyh create PartitionConsumers, len=%d, addr=%p\n", len(c.consumers), c)
+
 	if newNumPartitions < oldNumPartitions {
 		c.metrics.ConsumersPartitions.Set(float64(newNumPartitions))
 	} else {
@@ -569,6 +571,8 @@ func (c *consumer) Close() {
 			}(c.consumers[i])
 		}
 		wg.Wait()
+		fmt.Printf("dyh close PartitionConsumers, len=%d, addr=%p\n", len(c.consumers), c)
+		c.consumers = make([]*partitionConsumer, 0)
 		close(c.closeCh)
 		c.client.handlers.Del(c)
 		c.dlq.close()
