@@ -1,4 +1,4 @@
-module github.com/milvus-io/pulsar-client-go
+module github.com/bigsheeper/pulsar-client-go
 
 go 1.15
 
